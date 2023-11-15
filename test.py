@@ -86,6 +86,7 @@ if __name__ == '__main__':
     login_result = ali.get_ali_logion()
     alist_code = ali.get_alist_code(login_result)
     access_token = ali.get_access_token(alist_code)
+    access_token = "eyJraWQiOiJLcU8iLCJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmMjBkYjViMmZmYzk0ZTA4YWRmZTA4Y2VlNzY5YmE3YSIsImF1ZCI6Ijc2OTE3Y2NjY2Q0NDQxYzM5NDU3YTA0ZjYwODRmYjJmIiwiaXNzIjoiaHR0cHM6Ly9vcGVuLmFsaXl1bmRyaXZlLmNvbSIsImV4cCI6MTcwMDA1ODYwNiwiaWF0IjoxNzAwMDUwODA2LCJqdGkiOiJmNzZmNTUxOGNhZjk0ODliODBhNGFhODZkMDNmOThhZCJ9.-ayfwYfQqjXFnjO8rFssxyvGOozIqUogcl9MyYJKzg8"
     print(access_token,len(access_token))
     # ali = Aligo()
     # share_token = ali.get_share_token('hnWeeeNjbdq')
