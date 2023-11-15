@@ -62,25 +62,31 @@ class Ali():
     def get_access_token(self,code):
         """
         Access Token 有效期较短,需要重新获取 Access Token
+        token只有三个小时有效期，三个小时到期后，需要重复获取
+        access_token的作用是什么？
+        access_token的作用主要是用于API的授权和认证。
+        在API的使用过程中，访问令牌可以保证API的安全性，
+        防止未授权的访问以及恶意攻击。
+        例如，在一些需要身份验证的应用中，用户必须提供正确的访问令牌才能访问API。
+        在这种情况下，access_token就成为了身份认证的一种方式。
         """
         url = "https://api.xhofe.top/alist/ali_open/code"
         params = {"code": code, "grant_type": "authorization_code"}
-        results = requests.post(url, data=json.dumps(params),headers = {'Content-Type':'application/json'})
-        if results.status_code == 200:
-            print(results)
+        response = requests.post(url, data=json.dumps(params),headers = {'Content-Type':'application/json'})
+        if response.status_code == 200:
+            return response.json()["access_token"]
         else:
             print("Access Token获取失败")
             time.sleep(60)
             self.get_access_token(self.get_alist_code(self.get_ali_logion()))
 
 
-        print(results.json())
 if __name__ == '__main__':
     ali = Ali()
-    # login_result = ali.get_ali_logion()
-    # alist_code = ali.get_alist_code(login_result)
-    alist_code = "21078ad7179242d7beacce02fcb8ce4b"
-    ali.get_access_token(alist_code)
+    login_result = ali.get_ali_logion()
+    alist_code = ali.get_alist_code(login_result)
+    access_token = ali.get_access_token(alist_code)
+    print(access_token,len(access_token))
     # ali = Aligo()
     # share_token = ali.get_share_token('hnWeeeNjbdq')
     # file_list = ali.get_share_file_list(share_token)
