@@ -24,7 +24,7 @@ class Ali():
             "authorization": "Bearer eyJraWQiOiJLcU8iLCJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmMjBkYjViMmZmYzk0ZTA4YWRmZTA4Y2VlNzY5YmE3YSIsImF1ZCI6Ijc2OTE3Y2NjY2Q0NDQxYzM5NDU3YTA0ZjYwODRmYjJmIiwiaXNzIjoiaHR0cHM6Ly9vcGVuLmFsaXl1bmRyaXZlLmNvbSIsImV4cCI6MTcwMDAyMDg4NywiaWF0IjoxNzAwMDEzMDg3LCJqdGkiOiI1NTFiNzA2M2Y2ODI0MjM4YjliMzU2ZGNlMzA2YzFlYSJ9.U9Jii2I7i7LV4q-XXDnOMIA4OYiZH9c2NsXTeJDpFgo",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36",
             "Referer": "https://www.aliyundrive.com/"}
-        results = requests.post(url)
+        results = requests.post(url, timeout=60)
         print(results)
 
     def get_ali_logion(self):
@@ -36,7 +36,7 @@ class Ali():
         headers = {
             "Content-Type": "application/json"
         }
-        response = requests.post(url,json.dumps(params),headers=headers)
+        response = requests.post(url,json.dumps(params),headers=headers, timeout=60)
         if response.status_code != 200:
             print("阿里登录失败")
             self.get_ali_logion()
@@ -52,7 +52,7 @@ class Ali():
         url = "https://open.aliyundrive.com/oauth/users/authorize?client_id=76917ccccd4441c39457a04f6084fb2f&redirect_uri=https://alist.nn.ci/tool/aliyundrive/callback&scope=user:base,file:all:read,file:all:write&state="
         params = {"authorize": 1, "scope": "user:base,file:all:read,file:all:write"}
         headers = {'Content-Type':'application/json',"authorization": authorization}
-        respose = requests.post(url, data=json.dumps(params),headers=headers)
+        respose = requests.post(url, data=json.dumps(params),headers=headers, timeout=60)
         if respose.status_code != 200:
             print("获取Alist Code失败")
             self.get_alist_code(self.get_ali_logion())
@@ -72,7 +72,7 @@ class Ali():
         """
         url = "https://api.xhofe.top/alist/ali_open/code"
         params = {"code": code, "grant_type": "authorization_code"}
-        response = requests.post(url, data=json.dumps(params),headers = {'Content-Type':'application/json'})
+        response = requests.post(url, data=json.dumps(params),headers = {'Content-Type':'application/json'}, timeout=60)
         if response.status_code == 200:
             return response.json()["access_token"]
         else:
